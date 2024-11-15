@@ -1,0 +1,255 @@
+#given a year, return the century it is in
+
+year = 1705
+
+def centuryFromYear(year):
+    if year%100 == 0:
+        cent = (year//100) + 1
+    else:
+        cent = year//100
+    return cent
+
+
+print(centuryFromYear(year))
+17
+#check palindrome
+inputString = "malayalam"
+
+import numpy as np
+
+def checkPalindrome(inputString):
+    halflen = len(inputString)//2
+    s1 = inputString[0:halflen]
+    s2 = inputString[halflen:len(inputString)]
+    s2 = s2[::-1]
+    for n in range(0,halflen):
+        if s1[n] != s2[n]:
+            k = False
+            Break
+        else:
+            k = True
+    return k
+
+print(checkPalindrome(inputString))
+True
+#find the pair of adjacent elements that has the largest product and return that
+inputArray = [3, 6, -2, -5, 7, 3]
+
+def adjacentElementsProduct(inputArray):
+    p = []
+    for i in range(0,len(inputArray)-1):
+        p.append(inputArray[i]*inputArray[i+1])
+    return max(p)
+        
+print(adjacentElementsProduct(inputArray))
+21
+#given an incomplete array, how many more are needed? make it a complete sorted consecutive array of integer numbers
+def makeArrayConsecutive(statues):
+    statues.sort()
+    statues = list(set(statues))
+    needed = statues[-1] - (len(statues) - 1)
+    return needed
+                   
+statues = [6, 2, 3, 8]
+print(makeArrayConsecutive(statues))
+3
+#return the sum of the cells which are not 0 and not below a 0
+import numpy as np
+matrix = [[0,1,1,2],
+          [1,5,0,0],
+          [2,0,3,3]]
+
+def matrixElements(matrix):
+    rows = len(matrix)
+    columns = len(matrix[0])
+    k = 0
+    for c in range(0,columns):
+        for r in range(0,rows):
+            if matrix[r][c] == 0:
+                break
+            elif matrix[r][c] !=0:
+                k += matrix[r][c]
+    return k
+
+print(matrixElements(matrix))
+9
+#given an array of strings return another array containing all of its longest strings
+#
+inputArray = ["aba", "aa", "ad", "vcd", "aba"]
+
+def allLongestStrings(inputArray):
+    longest = []
+    lengths = []
+    for n in inputArray:
+        lengths.append(len(n))
+    maxlength = max(lengths)
+    for i in range(0,len(inputArray)):
+        if len(inputArray[i]) == maxlength:
+            longest.append(inputArray[i])
+    return longest
+
+print(allLongestStrings(inputArray))
+['aba', 'vcd', 'aba']
+#islucky
+n=1230
+
+def isLucky(n):
+    lstr = str(n)
+    lstr1 = lstr[0:(len(lstr)//2)]
+    lstr2 = lstr[(len(lstr)//2):len(lstr)]
+    s1 = 0
+    s2 = 0
+    for i in range(0,len(lstr1)):
+        s1 += int(lstr1[i])
+        s2 += int(lstr2[i])
+    return s1 == s2
+
+print(isLucky(n))
+True
+#sort the items in list which are not -1 and skip those
+a = [-1, 150, 190, 170, -1, -1, 160, 180]
+
+def sortByHeight(a):
+    heights = []
+    p = 0
+    for i in range(0,len(a)):
+        if a[i] != -1:
+            heights.append(a[i])
+    heights.sort()
+    for j in range(0,len(a)):
+        if a[j] != -1:
+            a[j] = heights[p]
+            p += 1
+    return a
+
+print(sortByHeight(a))
+[-1, 150, 160, 170, -1, -1, 180, 190]
+#check if two numbers are amicable numbers
+
+
+x=int(input('Enter number 1: '))
+y=int(input('Enter number 2: '))
+sum1=0
+sum2=0
+for i in range(1,x):
+    if x%i==0:
+        sum1+=i
+for j in range(1,y):
+    if y%j==0:
+        sum2+=j
+if(sum1==y and sum2==x):
+    print('Amicable!')
+else:
+    print('Not Amicable!')
+    
+Not Amicable!
+'''Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.'''
+
+def product_except_self(nums):
+    n = len(nums)
+    answer = [1] * n
+
+    # Calculate prefix product for each element
+    prefix = 1
+    for i in range(n):
+        answer[i] = prefix
+        prefix *= nums[i]
+
+    # Calculate suffix product for each element
+    suffix = 1
+    for i in range(n - 1, -1, -1):
+        answer[i] *= suffix
+        suffix *= nums[i]
+
+    return answer
+
+def split_and_rotate(nums, index):
+    # Split the array at the given index and rotate clockwise
+    return nums[index:] + nums[:index]
+
+# Example usage:
+nums1 = [1, 2, 3, 4]
+nums2 = [-1, 1, 0, -3, 3]
+print(product_except_self(nums1))  # Output: [24, 12, 8, 6]
+print(product_except_self(nums2))  # Output: [0, 0, 9, 0, 0]
+
+# Split and rotate example
+nums3 = [1, 2, 3, 4, 5]
+index = 2
+print(split_and_rotate(nums3, index))  # Output: [3, 4, 5, 1, 2]
+'''
+There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. You begin the journey with an empty tank at one of the gas stations.
+Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique.
+'''
+
+class Solution:
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        total_tank = 0
+        current_tank = 0
+        starting_station = 0
+
+        # Iterate through each gas station
+        for i in range(len(gas)):
+            total_tank += gas[i] - cost[i]
+            current_tank += gas[i] - cost[i]
+
+            # If the tank goes below zero, reset
+            if current_tank < 0:
+                # Start at the next station
+                starting_station = i + 1
+                # Reset current tank as we can't start from previous stations
+                current_tank = 0
+
+        # If the total amount of gas is greater or equal to the total cost, return the starting station
+        # Otherwise, return -1, as it's impossible to complete the circuit
+        return starting_station if total_tank >= 0 else -1
+'''
+There are n children standing in a line. Each child is assigned a rating value given in the integer array ratings.
+
+You are giving candies to these children subjected to the following requirements:
+
+Each child must have at least one candy.
+Children with a higher rating get more candies than their neighbors.
+Return the minimum number of candies you need to have to distribute the candies to the children.
+'''
+
+
+def candy(ratings):
+    n = len(ratings)
+    if n == 0:
+        return 0
+
+    # Step 1: Initialize all candies to 1.
+    candies = [1] * n
+
+    # Step 2: Traverse from left to right.
+    for i in range(1, n):
+        if ratings[i] > ratings[i - 1]:
+            candies[i] = candies[i - 1] + 1
+
+    # Step 3: Traverse from right to left.
+    for i in range(n - 2, -1, -1):
+        if ratings[i] > ratings[i + 1]:
+            candies[i] = max(candies[i], candies[i + 1] + 1)
+
+    # Step 4: Calculate the total candies required.
+    total_candies = sum(candies)
+
+    return total_candies
+
+# Test cases
+ratings1 = [1, 0, 2]
+ratings2 = [1, 2, 2]
+
+print(candy(ratings1))  # Output: 5
+print(candy(ratings2))  # Output: 4
+5
+4
+ 
